@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FolkTales Events - Premium Party Planning</title>
+    <title>Folk Tales Events - Premium Party Planning</title>
     <style>
         * {
             margin: 0;
@@ -56,6 +56,16 @@
             display: flex;
             list-style: none;
             gap: 2rem;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
         }
         
         .nav-links a {
@@ -411,6 +421,27 @@
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
             }
             
             .hero h1 {
@@ -439,13 +470,14 @@
 <body>
     <header>
         <nav class="container">
-            <a href="#" class="logo">✨ FolkTales Events</a>
+            <a href="#" class="logo">✨ Folk Tales Events</a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#events">Events</a></li>
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
         </nav>
     </header>
 
@@ -556,7 +588,7 @@
                         <div class="contact-icon">📧</div>
                         <div>
                             <h4>Email</h4>
-                            <p>hello@FolkTalesevents.com</p>
+                            <p>hello@folktalesevents.com</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -601,11 +633,31 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 FolkTales Events. All rights reserved. | Creating unforgettable memories since 2020</p>
+            <p>&copy; 2025 Folk Tales Events. All rights reserved. | Creating unforgettable memories since 2020</p>
         </div>
     </footer>
 
     <script>
+        // Mobile menu toggle function
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            navLinks.classList.toggle('active');
+            menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.querySelector('.nav-links');
+                const menuToggle = document.querySelector('.mobile-menu-toggle');
+                
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            });
+        });
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
