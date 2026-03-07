@@ -3,724 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FolkTales Events - Premium Party Planning</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .nav-links a:hover {
-            color: #ffd700;
-            transform: translateY(-2px);
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #ffd700;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            text-align: center;
-            color: white;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
-        }
-        
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            color: #333;
-            padding: 15px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            animation: fadeInUp 1s ease-out 0.4s both;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.4);
-        }
-        
-        /* Section Styles */
-        section {
-            padding: 80px 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            margin-bottom: 3rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        /* Events Section */
-        .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .event-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .event-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s ease;
-            opacity: 0;
-        }
-        
-        .event-card:hover::before {
-            opacity: 1;
-            transform: translateX(100%) rotate(45deg);
-        }
-        
-        .event-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-        
-        .event-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .event-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-        
-        .event-card p {
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.8;
-        }
-        
-        /* Gallery Section */
-        .gallery {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-        }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .gallery-item {
-            position: relative;
-            border-radius: 15px;
-            overflow: hidden;
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .gallery-item:nth-child(2) {
-            background: linear-gradient(135deg, #4ecdc4, #44a08d);
-        }
-        
-        .gallery-item:nth-child(3) {
-            background: linear-gradient(135deg, #ff9a9e, #fecfef);
-        }
-        
-        .gallery-item:nth-child(4) {
-            background: linear-gradient(135deg, #a8edea, #fed6e3);
-        }
-        
-        .gallery-item:nth-child(5) {
-            background: linear-gradient(135deg, #ffecd2, #fcb69f);
-        }
-        
-        .gallery-item:nth-child(6) {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-        }
-        
-        .gallery-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-        }
-        
-        .gallery-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-        
-        .gallery-text {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-        }
-        
-        .gallery-placeholder {
-            font-size: 4rem;
-            color: white;
-            opacity: 0.7;
-        }
-        
-        /* Contact Section */
-        .contact {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
-        
-        .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-top: 2rem;
-        }
-        
-        .contact-info {
-            color: white;
-        }
-        
-        .contact-info h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #ffd700;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(10px);
-        }
-        
-        .contact-icon {
-            font-size: 1.5rem;
-            margin-right: 1rem;
-            color: #ffd700;
-        }
-        
-        .contact-form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: white;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #ffd700;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-        
-        .submit-btn {
-            background: linear-gradient(45deg, #ffd700, #ffed4a);
-            color: #333;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
-        }
-        
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            backdrop-filter: blur(10px);
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(0, 0, 0, 0.95);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                padding: 1rem;
-                border-top: 1px solid rgba(255, 255, 255, 0.2);
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links li {
-                margin: 0.5rem 0;
-            }
-            
-            .mobile-menu-toggle {
-                display: block;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .contact-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .events-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <meta name="description" content="Folktale Eventz creates polished celebrations for weddings, birthdays, and corporate events.">
+    <title>Folktale Eventz | Premium Event Design Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <a href="#" class="logo">✨ FolkTales Events</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#events">Events</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-        </nav>
+    <div id="top"></div>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="brand" href="#top">
+                <img class="brand-logo" src="assets/branding/logo.png" alt="Folktale Eventz logo">
+                <span>Folktale Eventz</span>
+            </a>
+            <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul id="main-menu" class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <section id="home" class="hero">
-        <div class="container">
-            <h1>Unforgettable Celebrations</h1>
-            <p>Creating magical moments that last a lifetime</p>
-            <a href="#contact" class="cta-button">Plan Your Event</a>
-        </div>
-    </section>
-
-    <section id="events" class="events">
-        <div class="container">
-            <h2 class="section-title">Our Event Services</h2>
-            <div class="events-grid">
-                <div class="event-card">
-                    <div class="event-icon">💍</div>
-                    <h3>Weddings</h3>
-                    <p>From intimate ceremonies to grand celebrations, we create the perfect wedding day that reflects your unique love story with every detail meticulously planned.</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-icon">💎</div>
-                    <h3>Engagements</h3>
-                    <p>Make your proposal unforgettable with our romantic engagement planning services. We'll help you create the perfect moment to pop the question.</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-icon">🎂</div>
-                    <h3>Birthdays</h3>
-                    <p>Whether it's a milestone birthday or a fun celebration, we create personalized parties that make every age feel special and memorable.</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-icon">👶</div>
-                    <h3>Baby Showers</h3>
-                    <p>Celebrate new life with beautiful baby shower celebrations that honor the expecting parents and create lasting memories for all guests.</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-icon">🎓</div>
-                    <h3>Graduations</h3>
-                    <p>Honor achievements with sophisticated graduation parties that celebrate success and mark important life transitions with style.</p>
-                </div>
-                <div class="event-card">
-                    <div class="event-icon">🏢</div>
-                    <h3>Corporate Events</h3>
-                    <p>Professional events that impress clients and motivate teams. From conferences to company parties, we handle every business celebration.</p>
+    <main>
+        <section class="hero">
+            <div class="hero-gradient"></div>
+            <div class="container hero-content">
+                <p class="eyebrow">Luxury Event Curators</p>
+                <h1>Elegant celebrations, thoughtfully planned.</h1>
+                <p class="hero-copy">We design weddings, private events, and corporate experiences with timeless styling, seamless coordination, and refined hospitality.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#portfolio">View Portfolio</a>
+                    <a class="btn btn-secondary" href="gallery.html">Open Gallery</a>
+                    <a class="btn btn-secondary" href="#contact">Talk to Team</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <h2 class="section-title">Our Gallery</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">🎊</div>
-                    <div class="gallery-overlay">
-                        <div class="gallery-text">Luxury Wedding Reception</div>
-                    </div>
+        <section class="section brand-strip">
+            <div class="container">
+                <p>Trusted for destination weddings, intimate family functions, and premium business events.</p>
+            </div>
+        </section>
+
+        <section class="section stats-section" id="stats">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Our Numbers</p>
+                    <h2>Proven experience across celebrations</h2>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">🌸</div>
-                    <div class="gallery-overlay">
-                        <div class="gallery-text">Elegant Engagement Party</div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">🎈</div>
-                    <div class="gallery-overlay">
-                        <div class="gallery-text">Fun Birthday Celebration</div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">🎀</div>
-                    <div class="gallery-overlay">
-                        <div class="gallery-text">Beautiful Baby Shower</div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">🎪</div>
-                    <div class="gallery-overlay">
-                        <div class="gallery-text">Corporate Gala Event</div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">✨</div>
-                    <div class="gallery-overlay">
-                        <div class="gallery-text">Graduation Celebration</div>
-                    </div>
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <h3><span class="stat-number" data-target="420">17</span>+</h3>
+                        <p>Events Executed</p>
+                    </article>
+                    <article class="stat-card">
+                        <h3><span class="stat-number" data-target="55">5</span>+</h3>
+                        <p>Wedding Projects</p>
+                    </article>
+                    <article class="stat-card">
+                        <h3><span class="stat-number" data-target="98">98</span>%</h3>
+                        <p>Client Satisfaction</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <div class="contact-item">
-                        <div class="contact-icon">📱</div>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+1 (555) 123-4567</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>hello@folktalesevents.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <h4>Address</h4>
-                            <p>123 Celebration Street<br>Event City, EC 12345</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🕐</div>
-                        <div>
-                            <h4>Hours</h4>
-                            <p>Mon-Fri: 9AM-6PM<br>Sat-Sun: 10AM-4PM</p>
-                        </div>
-                    </div>
+        <section id="services" class="section section-light">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Signature Services</p>
+                    <h2>Planning formats tailored to your celebration</h2>
                 </div>
-                <div class="contact-form">
-                    <form onsubmit="handleSubmit(event)">
-                        <div class="form-group">
-                            <label for="name">Full Name</label>
-                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="event">Event Type</label>
-                            <input type="text" id="event" name="event" placeholder="Wedding, Birthday, Corporate, etc." required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tell us about your event vision..." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
+                <div class="service-grid">
+                    <article class="service-card">
+                        <h3>Wedding Planning</h3>
+                        <p>Concept to execution for ceremonies, receptions, and multi-day wedding functions.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>Private Celebrations</h3>
+                        <p>Birthdays, anniversaries, and family events with bespoke decor and curated experiences.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>Corporate Events</h3>
+                        <p>Professional execution for launches, award nights, leadership meets, and conferences.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>Decor and Styling</h3>
+                        <p>Theme design, floral styling, stage setups, table landscapes, and venue transformations.</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 FolkTales Events. All rights reserved. | Creating unforgettable memories since 2020</p>
+        <section id="portfolio" class="section section-dark">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Portfolio</p>
+                    <h2>Featured moments from recent events</h2>
+                    <p class="section-note">To add media: place files in <code>assets/media/photos</code> or <code>assets/media/videos</code>, then update the list in <code>js/script.js</code>.</p>
+                    <p><a class="btn btn-primary" href="gallery.html">View Full Gallery</a></p>
+                </div>
+
+                <div class="media-controls" role="tablist" aria-label="Media filters">
+                    <button class="media-tab is-active" type="button" data-filter="all" role="tab" aria-selected="true">All</button>
+                    <button class="media-tab" type="button" data-filter="photo" role="tab" aria-selected="false">Photos</button>
+                    <button class="media-tab" type="button" data-filter="video" role="tab" aria-selected="false">Videos</button>
+                </div>
+
+                <div class="media-grid" id="media-grid" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section id="process" class="section section-light">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Our Approach</p>
+                    <h2>A structured journey from concept to celebration</h2>
+                </div>
+                <div class="timeline">
+                    <article class="timeline-item">
+                        <span>01</span>
+                        <h3>Consultation</h3>
+                        <p>We align on style, priorities, venue scope, and celebration goals.</p>
+                    </article>
+                    <article class="timeline-item">
+                        <span>02</span>
+                        <h3>Design and Planning</h3>
+                        <p>Moodboards, layouts, vendor shortlists, and detailed execution timelines.</p>
+                    </article>
+                    <article class="timeline-item">
+                        <span>03</span>
+                        <h3>Production Day</h3>
+                        <p>On-site coordination, vendor management, and quality control throughout the event.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section testimonials">
+            <div class="container">
+                <div class="section-head">
+                    <p class="eyebrow">Client Notes</p>
+                    <h2>What our clients appreciate most</h2>
+                </div>
+                <div class="testimonial-grid">
+                    <article class="testimonial-card">
+                        <p>"The planning was clear and calm from day one. Every detail felt intentional and beautifully executed."</p>
+                        <h3>Riya and Arjun</h3>
+                    </article>
+                    <article class="testimonial-card">
+                        <p>"Their decor styling elevated our venue completely. Guests kept asking who planned it."</p>
+                        <h3>Nikita Sharma</h3>
+                    </article>
+                    <article class="testimonial-card">
+                        <p>"Professional, punctual, and polished. Our annual corporate event ran flawlessly."</p>
+                        <h3>Ops Team, Arclight Tech</h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section section-accent">
+            <div class="container contact-wrap">
+                <div>
+                    <p class="eyebrow">Contact</p>
+                    <h2>Let's create your next beautiful event</h2>
+                    <p>Reach us directly by phone or email.</p>
+                </div>
+                <div class="contact-cards">
+                    <a href="tel:+15551234567" class="contact-card">
+                        <h3>Phone</h3>
+                        <p>+91-9538889820</p>
+                        <p>+91-9611800438 </p>
+                    </a>
+                    <a href="mailto:folktaleeventz@gmail.com" class="contact-card">
+                        <h3>Email</h3>
+                        <p>folktaleeventz@gmail.com</p>
+                    </a>
+                    <div class="contact-card">
+                        <h3>Studio Hours</h3>
+                        <p>Mon-Sat, 10:00 AM - 7:00 PM</p>
+                    </div>
+                    <a href="https://instagram.com/folktaleeventz" class="contact-card insta-card" target="_blank" rel="noopener noreferrer">
+                        <div>
+                            <h3>Instagram</h3>
+                            <p>@folktaleeventz</p>
+                        </div>
+                        <img src="assets/branding/instagram-qr.png" alt="Instagram QR code for Folktale Eventz">
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-wrap">
+            <p>&copy; 2026 Folktale Eventz. All rights reserved.</p>
+            <a href="#top" id="back-to-top">Back to top</a>
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle function
-        function toggleMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            const menuToggle = document.querySelector('.mobile-menu-toggle');
-            
-            navLinks.classList.toggle('active');
-            menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
-        }
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                const navLinks = document.querySelector('.nav-links');
-                const menuToggle = document.querySelector('.mobile-menu-toggle');
-                
-                navLinks.classList.remove('active');
-                menuToggle.textContent = '☰';
-            });
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Form submission handler
-        function handleSubmit(event) {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData);
-            
-            // Simulate form submission
-            alert(`Thank you, ${data.name}! We've received your inquiry for your ${data.event} event. We'll contact you soon at ${data.email}.`);
-            
-            // Reset form
-            event.target.reset();
-        }
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(0, 0, 0, 0.9)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.1)';
-            }
-        });
-
-        // Gallery item click handler
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const text = this.querySelector('.gallery-text').textContent;
-                alert(`Opening ${text} - This would typically open a detailed gallery view or lightbox.`);
-            });
-        });
-
-        // Add entrance animations on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all event cards and gallery items
-        document.querySelectorAll('.event-card, .gallery-item').forEach(el => {
-            observer.observe(el);
-        });
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>

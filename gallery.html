@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Folktale Eventz gallery with event photos and videos.">
+    <title>Folktale Eventz | Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="gallery">
+    <div id="top"></div>
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a class="brand" href="index.html">
+                <img class="brand-logo" src="assets/branding/logo.png" alt="Folktale Eventz logo">
+                <span>Folktale Eventz</span>
+            </a>
+            <button class="menu-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-menu">
+                <span></span><span></span><span></span>
+            </button>
+            <nav>
+                <ul id="main-menu" class="nav-links">
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="index.html#process">Process</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="sub-hero">
+            <div class="container sub-hero-content">
+                <p class="eyebrow">Folktale Eventz Gallery</p>
+                <h1>All photos and videos in one place.</h1>
+                <p>Gallery media is loaded from <code>assets/gallery/photos</code> and <code>assets/gallery/videos</code>.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="index.html">Back to Home</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-dark">
+            <div class="container">
+                <div class="media-controls" role="tablist" aria-label="Media filters">
+                    <button class="media-tab is-active" type="button" data-filter="photo" role="tab" aria-selected="true">Photos</button>
+                    <button class="media-tab" type="button" data-filter="video" role="tab" aria-selected="false">Videos</button>
+                </div>
+
+                <div class="media-grid media-grid-wide" id="media-grid" aria-live="polite"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-wrap">
+            <p>&copy; 2026 Folktale Eventz. All rights reserved.</p>
+            <a href="#top" id="back-to-top">Back to top</a>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            const mediaLibrary = [
+                { type: "photo", src: "assets/gallery/photos/513d750c-b413-4da4-a843-326225d1107c.jpg" },
+                { type: "photo", src: "assets/gallery/photos/A7306643.jpg"},
+                { type: "photo", src: "assets/gallery/photos/A7308804.jpg" },
+                { type: "photo", src: "assets/gallery/photos/DSC_2473.JPG" },
+                { type: "photo", src: "assets/gallery/photos/DSC_2482.JPG" },
+                { type: "photo", src: "assets/gallery/photos/DSC_2485.JPG" },
+                { type: "photo", src: "assets/gallery/photos/DSC_2489.JPG" },
+                { type: "photo", src: "assets/gallery/photos/IMG_0290.jpg" },
+                { type: "photo", src: "assets/gallery/photos/IMG_2410.JPG" },
+                { type: "photo", src: "assets/gallery/photos/IMG_2490.jpg" },
+                { type: "photo", src: "assets/gallery/photos/IMG_2553.jpg" },
+                { type: "photo", src: "assets/gallery/photos/IMG_2592.jpg" },
+                { type: "photo", src: "assets/gallery/photos/BirthdayImage.jpg" },
+                { type: "photo", src: "assets/gallery/photos/DSC_2495.JPG" },
+                
+                { type: "video", src: "assets/gallery/videos/Mangala_Gouri.mp4" },
+                { type: "video", src: "assets/gallery/videos/Pavan%20Sushmita%20Teaser.mp4" },
+                { type: "video", src: "assets/gallery/videos/reception-walkthrough.mp4" },
+                { type: "video", src: "assets/gallery/videos/Shashti%20Poorthi.mp4" }
+            ];
+
+            document.addEventListener("DOMContentLoaded", function () {
+                initMenuToggle();
+                initMediaGallery();
+                initBackToTop();
+            });
+
+            function initMenuToggle() {
+                const toggle = document.querySelector(".menu-toggle");
+                const nav = document.querySelector(".nav-links");
+                if (!toggle || !nav) {
+                    return;
+                }
+
+                toggle.addEventListener("click", function () {
+                    const isOpen = nav.classList.toggle("is-open");
+                    toggle.setAttribute("aria-expanded", String(isOpen));
+                });
+
+                nav.querySelectorAll("a").forEach(function (link) {
+                    link.addEventListener("click", function () {
+                        nav.classList.remove("is-open");
+                        toggle.setAttribute("aria-expanded", "false");
+                    });
+                });
+            }
+
+            function initMediaGallery() {
+                const grid = document.getElementById("media-grid");
+                const tabs = document.querySelectorAll(".media-tab");
+                if (!grid || tabs.length === 0) {
+                    return;
+                }
+
+                const activeTab = document.querySelector(".media-tab.is-active");
+                let activeFilter = activeTab ? activeTab.dataset.filter : "photo";
+
+                function render() {
+                    const filtered = mediaLibrary.filter(function (item) {
+                        return item.type === activeFilter;
+                    });
+                    grid.innerHTML = "";
+
+                    if (filtered.length === 0) {
+                        grid.innerHTML = '<article class="media-card"><div class="media-placeholder">No media found.</div><div class="media-meta"><h3>Empty</h3><p>Update mediaLibrary in gallery.html.</p></div></article>';
+                        return;
+                    }
+
+                    filtered.forEach(function (item) {
+                        const card = document.createElement("article");
+                        card.className = "media-card";
+
+                        const media = item.type === "photo" ? createImage(item) : createVideo(item);
+                        card.appendChild(media);
+                        grid.appendChild(card);
+                    });
+                }
+
+                tabs.forEach(function (tab) {
+                    tab.addEventListener("click", function () {
+                        activeFilter = tab.dataset.filter || "photo";
+                        tabs.forEach(function (btn) {
+                            const isActive = btn === tab;
+                            btn.classList.toggle("is-active", isActive);
+                            btn.setAttribute("aria-selected", String(isActive));
+                        });
+                        render();
+                    });
+                });
+
+                render();
+            }
+
+            function createImage(item) {
+                const img = document.createElement("img");
+                img.src = item.src;
+                img.alt = item.title;
+                img.loading = "lazy";
+                img.style.cursor = "zoom-in";
+                img.tabIndex = 0;
+
+                const openLargeView = function () {
+                    openPhotoLightbox(item.src, item.title);
+                };
+
+                img.addEventListener("click", openLargeView);
+                img.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        openLargeView();
+                    }
+                });
+
+                img.addEventListener("error", function () {
+                    const fallback = document.createElement("div");
+                    fallback.className = "media-placeholder";
+                    fallback.textContent = "Missing image file";
+                    img.replaceWith(fallback);
+                });
+                return img;
+            }
+
+            function createVideo(item) {
+                const video = document.createElement("video");
+                video.src = item.src;
+                video.controls = true;
+                video.preload = "metadata";
+                video.addEventListener("error", function () {
+                    const fallback = document.createElement("div");
+                    fallback.className = "media-placeholder";
+                    fallback.textContent = "Missing video file";
+                    video.replaceWith(fallback);
+                });
+                return video;
+            }
+
+            function openPhotoLightbox(src, title) {
+                const overlay = document.createElement("div");
+                overlay.setAttribute("role", "dialog");
+                overlay.setAttribute("aria-modal", "true");
+                overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px;";
+
+                const image = document.createElement("img");
+                image.src = src;
+                image.alt = title;
+                image.style.cssText = "max-width:min(1200px,95vw);max-height:88vh;width:auto;height:auto;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,0.5);";
+
+                const close = document.createElement("button");
+                close.type = "button";
+                close.setAttribute("aria-label", "Close image");
+                close.textContent = "Close";
+                close.style.cssText = "position:absolute;top:18px;right:18px;padding:10px 14px;border:0;border-radius:8px;cursor:pointer;background:#ffffff;color:#111111;font-weight:700;";
+
+                const closeLightbox = function () {
+                    document.removeEventListener("keydown", onKeyDown);
+                    overlay.remove();
+                };
+
+                const onKeyDown = function (event) {
+                    if (event.key === "Escape") {
+                        closeLightbox();
+                    }
+                };
+
+                close.addEventListener("click", closeLightbox);
+                overlay.addEventListener("click", function (event) {
+                    if (event.target === overlay) {
+                        closeLightbox();
+                    }
+                });
+                document.addEventListener("keydown", onKeyDown);
+
+                overlay.appendChild(image);
+                overlay.appendChild(close);
+                document.body.appendChild(overlay);
+            }
+
+            function initBackToTop() {
+                const backToTop = document.getElementById("back-to-top");
+                if (!backToTop) {
+                    return;
+                }
+
+                backToTop.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+            }
+
+        })();
+    </script>
+</body>
+</html>

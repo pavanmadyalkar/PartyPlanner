@@ -11,10 +11,40 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize gallery interactions
     initGalleryInteractions();
+
+    // Initialize media grid for portfolio/gallery sections
+    initMediaGallery();
     
     // Initialize scroll animations
     initScrollAnimations();
 });
+
+const mediaLibrary = [
+    {
+        type: 'photo',
+        src: 'assets/media/photos/DSC_2495.JPG',
+        title: 'Royal Wedding Reception',
+        description: 'This is a featured event photo showcasing our expertise in creating unforgettable wedding receptions.'
+    },
+    {
+        type: 'photo',
+        src: 'assets/media/photos/BirthdayImage.jpg',
+        title: 'Birthday Decoration',
+        description: 'This is a featured event photo showcasing our expertise in creating memorable birthday celebrations.'
+    },
+    {
+        type: 'video',
+        src: 'assets/media/videos/Pavan Sushmita Teaser.mp4',
+        title: 'Pavan Sushmita Teaser',
+        description: 'Featured event video showcasing our work for a high-profile wedding teaser.'
+    },
+    {
+        type: 'video',
+        src: 'assets/media/videos/reception-walkthrough.mp4',
+        title: 'Reception Walkthrough',
+        description: 'A walkthrough of our reception space, showcasing the elegant setup and ambiance for your special day.'
+    }
+];
 
 // Smooth scrolling functionality
 function initSmoothScrolling() {
@@ -387,13 +417,10 @@ function initLoadingScreen() {
 
 // Initialize all enhanced features
 document.addEventListener('DOMContentLoaded', function() {
-    initLoadingScreen();
     initParallaxEffect();
     
-    // Initialize typing effect after loading screen
-    setTimeout(() => {
-        initTypingEffect();
-    }, 1500);
+    // Initialize typing effect after initial load
+    initTypingEffect();
 });
 
 // Add service worker for offline functionality (optional)
@@ -407,4 +434,97 @@ if ('serviceWorker' in navigator) {
                 console.log('SW registration failed: ', registrationError);
             });
     });
+}
+
+function initMediaGallery() {
+    const grid = document.getElementById('media-grid');
+    const tabs = document.querySelectorAll('.media-tab');
+
+    if (!grid || tabs.length === 0) {
+        return;
+    }
+
+    const activeTab = document.querySelector('.media-tab.is-active');
+    let activeFilter = activeTab?.dataset.filter || 'all';
+
+    const render = () => {
+        const filtered = mediaLibrary.filter((item) => activeFilter === 'all' || item.type === activeFilter);
+        grid.innerHTML = '';
+
+        if (filtered.length === 0) {
+            grid.innerHTML = '<article class="media-card"><div class="media-placeholder">No media found for this filter.</div><div class="media-meta"><h3>Empty</h3><p>Add files to assets/media/photos or assets/media/videos and update mediaLibrary in js/script.js.</p></div></article>';
+            return;
+        }
+
+        filtered.forEach((item) => {
+            const card = document.createElement('article');
+            card.className = 'media-card';
+
+            const media = item.type === 'photo' ? createImage(item) : createVideo(item);
+            const meta = document.createElement('div');
+            meta.className = 'media-meta';
+            meta.innerHTML = `<h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p>`;
+
+            card.appendChild(media);
+            card.appendChild(meta);
+            grid.appendChild(card);
+        });
+    };
+
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+            activeFilter = tab.dataset.filter || 'all';
+
+            tabs.forEach((btn) => {
+                const isActive = btn === tab;
+                btn.classList.toggle('is-active', isActive);
+                btn.setAttribute('aria-selected', String(isActive));
+            });
+
+            render();
+        });
+    });
+
+    render();
+}
+
+function createImage(item) {
+    const img = document.createElement('img');
+    img.src = item.src;
+    img.alt = item.title;
+    img.loading = 'lazy';
+
+    img.addEventListener('error', () => {
+        const fallback = document.createElement('div');
+        fallback.className = 'media-placeholder';
+        fallback.textContent = 'Missing image file';
+        img.replaceWith(fallback);
+    });
+
+    return img;
+}
+
+function createVideo(item) {
+    const video = document.createElement('video');
+    video.src = item.src;
+    video.controls = true;
+    video.preload = 'metadata';
+
+    video.addEventListener('error', () => {
+        const fallback = document.createElement('div');
+        fallback.className = 'media-placeholder';
+        fallback.textContent = 'Missing video file';
+        video.replaceWith(fallback);
+    });
+
+    return video;
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
 }
