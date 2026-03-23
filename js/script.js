@@ -33,6 +33,12 @@ const mediaLibrary = [
         description: 'This is a featured event photo showcasing our expertise in creating memorable birthday celebrations.'
     },
     {
+        type: 'photo',
+        src: 'assets/gallery/photos/DSC_2482.JPG',
+        title: 'Reception Setup',
+        description: 'This is a featured event photo showcasing our expertise in creating unforgettable wedding receptions.'
+    },
+    {
         type: 'video',
         src: 'assets/media/videos/Pavan Sushmita Teaser.mp4',
         title: 'Pavan Sushmita Teaser',
