@@ -1,5 +1,7 @@
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
+    initMobileMenu();
+
     // Initialize smooth scrolling
     initSmoothScrolling();
     
@@ -51,6 +53,41 @@ const mediaLibrary = [
         description: 'A walkthrough of our reception space, showcasing the elegant setup and ambiance for your special day.'
     }
 ];
+
+function initMobileMenu() {
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('main-menu');
+
+    if (!toggle || !menu) {
+        return;
+    }
+
+    const closeMenu = () => {
+        menu.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+    };
+
+    toggle.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 760) {
+            closeMenu();
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+            closeMenu();
+        }
+    });
+}
 
 // Smooth scrolling functionality
 function initSmoothScrolling() {

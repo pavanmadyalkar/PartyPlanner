@@ -97,6 +97,7 @@ video {
 }
 
 .nav-wrap {
+    position: relative;
     min-height: 74px;
     display: flex;
     justify-content: space-between;
@@ -571,9 +572,9 @@ video {
     .nav-links {
         display: none;
         position: absolute;
-        right: 1rem;
+        right: 0;
         top: 66px;
-        width: min(220px, calc(100% - 2rem));
+        width: min(240px, calc(100vw - 2rem));
         flex-direction: column;
         background: #fffbf6;
         border: 1px solid var(--line);
